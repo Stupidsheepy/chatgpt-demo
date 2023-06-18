@@ -148,6 +148,8 @@
       font-size: var(--h2-font-size);
       font-weight: 600;
    }
+   /* For small devices */
+
 </style>
 <!--=============== MAIN JS ===============-->
 <script>
@@ -240,18 +242,20 @@
       }
 
       // If hours is less than 10, add a 0 (01,02,03...09)
+      let new_hh:string;
       if (hh < 10) {
-         hh = Number(`0${hh}`);
+         new_hh = `0${hh}`;
       }
 
-      textHour.innerHTML = `${hh}:`;
+      textHour.innerHTML = `${new_hh}:`;
 
       // If minutes is less than 10, add a 0 (01,02,03...09)
+      let new_mm:string;
       if (mm < 10) {
-         mm = Number(`0${mm}`);
+         new_mm = `0${mm}`;
       }
 
-      textMinutes.innerHTML = mm.toString();
+      textMinutes.innerHTML = new_mm;
    };
    setInterval(clockText, 1000); // (Updates every 1s) 1000 = 1s
 </script>
