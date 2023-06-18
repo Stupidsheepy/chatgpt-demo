@@ -1,30 +1,257 @@
+<div class="clock">
+   <div class="clock__circle">
+      <div class="clock__rounder"></div>
+      <div class="clock__hour" id="clock-hour"></div>
+      <div class="clock__minutes" id="clock-minutes"></div>
+   </div>
 
-   <div class="clock">
-      <div class="clock__circle">
-         <div class="clock__rounder"></div>
-         <div class="clock__hour" id="clock-hour"></div>
-         <div class="clock__minutes" id="clock-minutes"></div>
+   <div>
+      <div class="clock__date">
+         <span class="clock__day-week" id="date-day-week"></span>
+
+         <div>
+            <span class="clock__month" id="date-month"></span>
+            <span class="clock__day" id="date-day"></span>
+            <span class="clock__year" id="date-year"></span>
+         </div>
       </div>
 
-      <div>
-         <div class="clock__date">
-            <span class="clock__day-week" id="date-day-week"></span>
-
-            <div>
-               <span class="clock__month" id="date-month"></span>
-               <span class="clock__day" id="date-day"></span>
-               <span class="clock__year" id="date-year"></span>
-            </div>
-         </div>
-
-         <div class="clock__text">
-            <span class="clock__text-hour" id="text-hour"></span>
-            <span class="clock__text-minutes" id="text-minutes"></span>
-            <span class="clock__text-ampm" id="text-ampm"></span>
-         </div>
+      <div class="clock__text">
+         <span class="clock__text-hour" id="text-hour"></span>
+         <span class="clock__text-minutes" id="text-minutes"></span>
+         <span class="clock__text-ampm" id="text-ampm"></span>
       </div>
    </div>
-  <link rel="stylesheet" href="assets/css/styles.css">
-  
+</div>
+<!-- <link rel="stylesheet" href="assets/css/styles.css" /> -->
+<style>
+   /*=============== GOOGLE FONTS ===============*/
+   @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+
+   /*=============== VARIABLES CSS ===============*/
+   :root {
+      /*========== Colors ==========*/
+      /*Color mode HSL(hue, saturation, lightness)*/
+      --red-color: hsl(2, 72%, 50%);
+      --black-color: hsl(75, 4%, 18%);
+      --text-color: hsl(75, 4%, 12%);
+      --text-color-light: hsl(75, 4%, 75%);
+      --body-color: hsl(0, 0%, 75%);
+      --container-color: hsl(75, 15%, 85%);
+
+      /*========== Font and typography ==========*/
+      /*.5rem = 8px | 1rem = 16px ...*/
+      --body-font: "Montserrat", sans-serif;
+      --h2-font-size: 1.25rem;
+      --small-font-size: 0.813rem;
+   }
+
+   /*========== Responsive typography ==========*/
+   @media screen and (min-width: 1024px) {
+      :root {
+         --h1-font-size: 2.25rem;
+         --h2-font-size: 1.5rem;
+      }
+   }
+
+   /*=============== BASE ===============*/
+   * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+   }
+
+   /* body {} */
+
+   /*=============== CLOCK ===============*/
+
+   .clock {
+      /* from body */
+      font-family: var(--body-font);
+      background-color: var(--body-color);
+      color: var(--text-color);
+      /* from body */
+      width: 50%;
+      height: 30%;
+      background-color: var(--container-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 1rem;
+      border: 3px solid var(--black-color);
+      border-radius: 10rem;
+      box-shadow: 6px 6px 0 hsl(0, 0%, 65%), 12px 12px 0 hsl(75, 4%, 18%),
+         inset 10px 10px 0 hsl(0, 0%, 75%), inset 11px 11px 0 hsl(75, 4%, 65%);
+   }
+
+   .clock__circle {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border: 3px solid var(--black-color);
+      background-color: var(--container-color);
+      border-radius: 50%;
+      box-shadow: inset 2px 2px 8px hsla(0, 0%, 0%, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
+
+   .clock__rounder {
+      width: 6px;
+      height: 6px;
+      background-color: var(--black-color);
+      border-radius: 50%;
+      box-shadow: 0 0 6px hsla(0, 0%, 0%, 0.25);
+      z-index: 2;
+   }
+
+   .clock__hour {
+      width: 2px;
+      height: 25px;
+      background-color: var(--red-color);
+   }
+
+   .clock__minutes {
+      width: 2px;
+      height: 38px;
+      background-color: var(--red-color);
+   }
+
+   .clock__hour,
+   .clock__minutes {
+      box-shadow: 0 0 6px hsla(0, 0%, 0%, 0.25);
+      position: absolute;
+      bottom: 50%;
+      transform-origin: bottom;
+   }
+
+   .clock__date {
+      display: grid;
+      row-gap: 0.25rem;
+      border-bottom: 1px solid var(--text-color-light);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+   }
+
+   .clock__day-week,
+   .clock__text-ampm {
+      font-size: var(--small-font-size);
+      font-weight: 500;
+   }
+
+   .clock__month,
+   .clock__day,
+   .clock__year,
+   .clock__text-hour,
+   .clock__text-minutes {
+      font-size: var(--h2-font-size);
+      font-weight: 600;
+   }
+</style>
 <!--=============== MAIN JS ===============-->
-<script src="assets/js/main.js"></script>
+<script>
+   /*=============== CLOCK ===============*/
+   const hour = document.getElementById("clock-hour") as HTMLElement,
+      minutes = document.getElementById("clock-minutes") as HTMLElement;
+
+   const clock = () => {
+      // We get the Date object
+      let date = new Date();
+
+      // We get the hours and minutes
+      // (current time) / 12(hours) * 360(deg circle)
+      // (Current minute) / 60(minutes) * 360(deg circle)
+      let hh = (date.getHours() / 12) * 360,
+         mm = (date.getMinutes() / 60) * 360;
+
+      // We add a rotation to the elements
+      hour.style.transform = `rotateZ(${hh + mm / 12}deg)`;
+      minutes.style.transform = `rotateZ(${mm}deg)`;
+   };
+   setInterval(clock, 1000); // (Updates every 1s) 1000 = 1s
+
+   /*=============== TIME AND DATE TEXT ===============*/
+   const dateDayWeek = document.getElementById("date-day-week") as HTMLElement,
+      dateMonth = document.getElementById("date-month") as HTMLElement,
+      dateDay = document.getElementById("date-day") as HTMLElement,
+      dateYear = document.getElementById("date-year") as HTMLElement,
+      textHour = document.getElementById("text-hour") as HTMLElement,
+      textMinutes = document.getElementById("text-minutes") as HTMLElement,
+      textAmPm = document.getElementById("text-ampm") as HTMLElement;
+
+   const clockText = () => {
+      // We get the Date object
+      let date = new Date();
+
+      // We get the time and date
+      let dayWeek = date.getDay(),
+         month = date.getMonth(),
+         day = date.getDate(),
+         year = date.getFullYear(),
+         hh = date.getHours(),
+         mm = date.getMinutes(),
+         ampm;
+
+      // We get the days of the week and the months. (First day of the week Sunday)
+      let daysWeek = [
+         "Sunday",
+         "Monday",
+         "Tuesday",
+         "Wednesday",
+         "Thursday",
+         "Friday",
+         "Saturday",
+      ];
+      let months = [
+         "Jan",
+         "Feb",
+         "Mar",
+         "Apr",
+         "May",
+         "Jun",
+         "Jul",
+         "Aug",
+         "Sep",
+         "Oct",
+         "Nov",
+         "Dec",
+      ];
+
+      // We add the corresponding dates
+      dateDayWeek.innerHTML = `${daysWeek[dayWeek]}`;
+      dateMonth.innerHTML = `${months[month]}`;
+      dateDay.innerHTML = `${day}, `;
+      dateYear.innerHTML = year.toString();
+
+      // If hours is greater than 12 (afternoon), we subtract -12, so that it starts at 1 (afternoon)
+      if (hh >= 12) {
+         hh = hh - 12;
+         ampm = "PM";
+      } else {
+         ampm = "AM";
+      }
+
+      textAmPm.innerHTML = ampm;
+
+      // When it is 0 hours (early morning), we tell it to change to 12 hours
+      if (hh == 0) {
+         hh = 12;
+      }
+
+      // If hours is less than 10, add a 0 (01,02,03...09)
+      if (hh < 10) {
+         hh = Number(`0${hh}`);
+      }
+
+      textHour.innerHTML = `${hh}:`;
+
+      // If minutes is less than 10, add a 0 (01,02,03...09)
+      if (mm < 10) {
+         mm = Number(`0${mm}`);
+      }
+
+      textMinutes.innerHTML = mm.toString();
+   };
+   setInterval(clockText, 1000); // (Updates every 1s) 1000 = 1s
+</script>
