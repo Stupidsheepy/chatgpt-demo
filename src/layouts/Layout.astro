@@ -23,27 +23,13 @@ const { title } = Astro.props;
 			) : null
 		}
 	</head>
-	<style>
-		.sakana-box {
-			height: 10px !important;
-			position: fixed;
-			bottom: 5%;
-			right: -9%;
-		}
-
-		@media screen and (max-width: 1000px) {
-			.sakana-box {
-				display: none;
-			}
-		}
-	</style>
 	<body>
 		<slot />
 
 		<div class="sakana-box"></div>
 	</body>
 </html>
-
+<!-- what is style is:global -->
 <style is:global>
 	:root {
 		--c-bg: #fbfbfb;
@@ -94,6 +80,18 @@ const { title } = Astro.props;
 		transform: translate(-50%, -50%);
 		pointer-events: none; /* 防止圆圈被点击 */
 	}
+	.sakana-box {
+			height: 10px !important;
+			position: fixed;
+			bottom: 5%;
+			right: -9%;
+		}
+
+		@media screen and (max-width: 1000px) {
+			.sakana-box {
+				display: none;
+			}
+		}
 </style>
 <script>
 	const initTheme = () => {
