@@ -40,6 +40,9 @@ dependencies:
   markdown-it-katex:
     specifier: ^2.0.3
     version: 2.0.3
+  sakana:
+    specifier: ^1.0.8
+    version: 1.0.8
   solid-js:
     specifier: 1.6.12
     version: 1.6.12
@@ -3597,6 +3600,10 @@ packages:
 
   /safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
+    dev: false
+
+  /sakana@1.0.8:
+    resolution: {integrity: sha512-RRpbvaDeQ7n43CEhHJTuDriR9Q39iR1itTH05TeLGyTMkxPzj1W0LBSIJfnctBF83NwESCrJOlCkd1VkytxO+A==}
     dev: false
 
   /sass-formatter@0.7.6:

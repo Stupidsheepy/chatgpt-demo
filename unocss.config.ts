@@ -20,7 +20,7 @@ export default defineConfig({
   ],
   transformers: [transformerVariantGroup(), transformerDirectives()],
   shortcuts: [
-    {
+    {      
       "ml-100%": "margin-left : 100%",
       nihao: "flex justify-center items-center",
       fc: "flex justify-center",
