@@ -41,14 +41,6 @@ const { title } = Astro.props;
 		<slot />
 
 		<div class="sakana-box"></div>
-		<script>
-			import Sakana from "sakana";
-			Sakana.init({
-				el: ".sakana-box", // 启动元素 node 或 选择器
-				scale: 0.5, // 缩放倍数
-				canSwitchCharacter: true, // 允许换角色
-			});
-		</script>
 	</body>
 </html>
 
@@ -94,8 +86,15 @@ const { title } = Astro.props;
 	::-webkit-scrollbar-track {
 		background-color: var(--c-bg);
 	}
+	#circle {
+		position: absolute;
+		border-radius: 50%;
+		background-color: dodgerblue;
+		opacity: 0.5;
+		transform: translate(-50%, -50%);
+		pointer-events: none; /* 防止圆圈被点击 */
+	}
 </style>
-
 <script>
 	const initTheme = () => {
 		const darkSchema =
@@ -113,4 +112,48 @@ const { title } = Astro.props;
 	};
 
 	initTheme();
+	import Sakana from "sakana";
+	Sakana.init({
+		el: ".sakana-box", // 启动元素 node 或 选择器
+		scale: 0.5, // 缩放倍数
+		canSwitchCharacter: true, // 允许换角色
+	});
+
+	// 监听鼠标点击事件
+	document.addEventListener("click", function (event: MouseEvent) {
+		const x: number = event.clientX;
+		// 获取鼠标点击位置的X坐标
+		const y: number = event.clientY;
+		console.log(x, y);
+		// 获取鼠标点击位置的Y坐标
+
+		const circle: HTMLDivElement = document.createElement("div");
+		// 创建圆圈元素
+		circle.setAttribute("id", "circle");
+		document.body.appendChild(circle);
+		// 添加到页面
+
+		// 设置初始样式
+		circle.style.top = `${y}px`;
+		circle.style.left = `${x}px`;
+		circle.style.width = "10px";
+		circle.style.height = "10px";
+
+		// 定义动画函数
+		const animate = () => {
+			const radius: number = parseInt(circle.style.width) + 2; // 增加圆的半径
+			circle.style.width = `${radius}px`;
+			circle.style.height = `${radius}px`;
+			circle.style.opacity = `${1 - radius / 100}`;
+			// 透明度随半径增大而减小
+
+			if (radius < 100) {
+				requestAnimationFrame(animate); // 继续执行动画
+			} else {
+				document.body.removeChild(circle); // 动画完成后删除圆圈元素
+			}
+		};
+
+		animate(); // 启动动画
+	});
 </script>
