@@ -127,25 +127,21 @@
 
 /*=============== BREAKPOINTS ===============*/
 /* For small devices */
-/* @media screen and (max-width: 340px) {
+@media screen and (max-width: 500px) {
   .clock {
-    width: 176px;
-    height: 328px;
-    flex-direction: column;
-    row-gap: 1.5rem;
-    text-align: center;
-    padding-left: .8rem;
+    width: 70%;
+    height: 20%;
   }
-} */
+}
 
 /* For medium devices */
-/* @media screen and (min-width: 450px) {
+@media screen and (min-width: 450px) {
   .clock {
     width: 380px;
     height: 190px;
     column-gap: 2rem;
   }
-} */
+}
 
 /* For large devices */
 /* @media screen and (min-width: 1024px) {
