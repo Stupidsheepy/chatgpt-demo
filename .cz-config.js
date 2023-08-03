@@ -1,3 +1,4 @@
+// 在node.modules/cz-customizable/index.js中，将.cz-config.js改为.cz-config.cjs
 module.exports = {
     // 可选类型
     types: [
